@@ -27,7 +27,7 @@ class TransactionController extends Controller
   public function mtcn_number_search(Request $request)
   {
     $rules = [
-        'mtcn_number' => 'required|integer',
+        'mtcn_number' => 'required',
     ];
 
     $valida = Validator::make($request->all(), $rules);
@@ -59,6 +59,7 @@ class TransactionController extends Controller
      $ptk = $ptoken->token;
 
      $url_tot = "https://shop.digitaltermination.com/api/transactions/".$mtcn_number."/cash-pick-ups/look-up";
+
      // $url_tot = "https://shop.digitaltermination.com/api/transactions/".$mtcn_number;
 
      $clientz = new Client([
