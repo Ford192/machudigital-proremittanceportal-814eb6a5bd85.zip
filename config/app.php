@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Zeepay Instntmny'),
 
     /*
     |--------------------------------------------------------------------------
@@ -150,16 +150,6 @@ return [
         /*
          * Package Service Providers...
          */
-
-        /*
-        |--------------------------------------------------------------------------
-        | Logs
-        |--------------------------------------------------------------------------
-        |
-        | This is to create a beautiful log view report /logs
-        |
-        */
-        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
         /*
          * Application Service Providers...

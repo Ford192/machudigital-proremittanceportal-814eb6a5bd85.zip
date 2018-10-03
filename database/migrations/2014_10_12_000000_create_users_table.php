@@ -18,6 +18,10 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('account_type')->default('admin');
+            $table->string('bank')->default(false);
+            $table->string('bank_branch')->default(false);
+            $table->integer('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });
