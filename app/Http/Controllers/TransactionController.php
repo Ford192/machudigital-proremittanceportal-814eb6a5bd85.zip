@@ -48,6 +48,7 @@ class TransactionController extends Controller
     }
 
     // return redirect('/home');
+    activity()->log('User ['.Auth::user()->email.'] search for mtcn number  ['.$request->mtcn_number.'] in local database');
     return redirect('/mtcn/'.$request->mtcn_number);
   }
 
@@ -84,6 +85,8 @@ class TransactionController extends Controller
       // return (json_decode($requests, true));
       // $trans_data = json_decode($requests->getBody()['transaction'])
       \Session::put('trans_data', $resp['transaction']);
+
+      activity()->log('User ['.Auth::user()->email.'] search for mtcn number  ['.$mtcn_number.']');
       return view('pages.mtcn_result', compact('resp'));
   }
 
@@ -134,11 +137,14 @@ class TransactionController extends Controller
 
     \Session::put('retn', $request->all());
     $hut = array('ht'=>1);
+
+    activity()->log('User ['.Auth::user()->email.'] saved transaction with mtcn number  ['.$request->mtcn_number.']');
     return redirect('/home')->with('hut', $hut);
   }
 
   public function show_all()
   {
+    activity()->log('User ['.Auth::user()->email.'] view all Transactions Made');
     $transx = Trans::paginate(12);
     return view('pages.remitance', compact('transx'));
   }

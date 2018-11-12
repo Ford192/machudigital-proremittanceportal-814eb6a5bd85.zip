@@ -31,7 +31,7 @@ class CreateTransactionsTable extends Migration
             $table->string('service_type');
             $table->string('purpose');
             $table->string('mobile_account');
-            $table->integer('extra_id');
+            $table->string('extra_id');
             $table->integer('bank_officer');
             $table->timestamps();
         });

@@ -49,12 +49,14 @@ class UserController extends Controller
 
   public function all_users()
   {
+    activity()->log('User ['.Auth::user()->email.'] view all users');
     $usr = User::all();
     return view('pages.users', compact('usr'));
   }
 
   public function bank_users()
   {
+    activity()->log('User ['.Auth::user()->email.'] view all users');
     $usr = User::where('bank',Auth::user()->bank)->get();
     return view('pages.users', compact('usr'));
   }
@@ -64,6 +66,8 @@ class UserController extends Controller
     $ur = User::findOrfail($id);
     $ur->is_active = $sid;
     $ur->save();
+
+    activity()->log('User ['.Auth::user()->email.'] changed status of User ['.$ur->email.'] to '.$id);
 
     return redirect('/admin/show/users/all')
        ->with('status', 'success')
@@ -99,6 +103,8 @@ class UserController extends Controller
     $usera->bank_branch = $request->bank_branch;
     $usera->password = Hash::make($request->password);
     $usera->save();
+
+    activity()->log('User ['.Auth::user()->email.'] created new User ['.$request->email.']');
 
     return redirect()->back()
       ->with('status', 'success')

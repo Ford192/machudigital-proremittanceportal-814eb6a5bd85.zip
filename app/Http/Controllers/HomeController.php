@@ -27,6 +27,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+      activity()->log('User ['.Auth::user()->email.'] login successful');
+
         $ptoken = Ptoken::where('status',1)->orderBy('created_at','desc')->first();
 
         if(!isset($ptoken->created_at))
@@ -64,6 +66,7 @@ class HomeController extends Controller
 
     public function logout()
     {
+      activity()->log('User ['.Auth::user()->email.'] logout successful');
       Auth::logout();
       return redirect('login');
     }

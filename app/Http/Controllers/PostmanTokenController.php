@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\PostmanToken as PToken;
+use Illuminate\Support\Facades\Auth;
 
 class PostmanTokenController extends Controller
 {
@@ -54,6 +55,8 @@ class PostmanTokenController extends Controller
     $ptok = New PToken();
     $ptok->token = $tk['token_type'].' '.$tk['access_token'];
     $ptok->save();
+
+    activity()->log('new PostmanToken created');
 
     \Session::put('v_token', $tk['token_type'].' '.$tk['access_token']);
 

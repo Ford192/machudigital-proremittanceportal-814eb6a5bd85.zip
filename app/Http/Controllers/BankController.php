@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bank as Bank;
+use Illuminate\Support\Facades\Auth;
 
 class BankController extends Controller
 {
@@ -24,6 +25,7 @@ class BankController extends Controller
      public function show_banks()
      {
        $all_banks = Bank::get();
+       activity()->log('User ['.Auth::user()->email.'] view all banks registered');
        return view('pages.banks', compact('all_banks'));
      }
 
@@ -47,6 +49,7 @@ class BankController extends Controller
 
        $all_banks = Bank::get();
 
+       activity()->log('User ['.Auth::user()->email.'] created a new bank ['.$request->bank_n.']');
        return redirect('/bank/show')
           ->with('status', 'success')
           ->with('message', 'Bank Successfully Added');
@@ -59,6 +62,8 @@ class BankController extends Controller
       $bk->save();
 
       $all_banks = Bank::get();
+
+      activity()->log('User ['.Auth::user()->email.'] updated bank ['.$bk->name.'] status to '.$id);
 
       return redirect('/bank/show')
          ->with('status', 'success')

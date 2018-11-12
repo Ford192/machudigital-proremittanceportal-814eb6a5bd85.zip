@@ -8,6 +8,7 @@
         <li><a href="{{ url('/bank/show') }}" class=""><i class="lnr lnr-chart-bars"></i> <span>Banks</span></a></li>
         <li><a href="{{ route('all_users_admin')}}" class=""><i class="lnr lnr-users"></i> <span>Users</span></a></li>
         <li><a href="{{ route('all_remitance')}}" class=""><i class="lnr lnr-briefcase"></i> <span>Transactions</span></a></li>
+        <li><a href="{{ route('actLog')}}" class=""><i class="lnr lnr-briefcase"></i> <span>Activity Logs</span></a></li>
       @endcan
       @can('is_bank_cm')
         <li><a href="{{ route('bank_users_admin')}}" class=""><i class="lnr lnr-users"></i> <span>Users</span></a></li>

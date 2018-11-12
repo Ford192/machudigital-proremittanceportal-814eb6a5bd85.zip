@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/activity_log', function () {
+    return view('pages.act_logs');
+})->name('actLog');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
