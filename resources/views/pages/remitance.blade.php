@@ -54,7 +54,7 @@
       								<h4><span class="text-primary">Mobile Account :</span><b>{{ $rem->mobile_account }}</b></h4>
       								<h4><span class="text-primary">Bank Officer :</span><b>{{ \App\User::find($rem->bank_officer)->name }}</b></h4>
       								<h4><span class="text-primary">Created_at :</span><b>{{ $rem->created_at->toDayDateTimeString() }}</b></h4>
-      								<h4><span class="text-primary">Name :</span><b>How are u</b></h4>
+      								<!-- <h4><span class="text-primary">Name :</span><b>How are u</b></h4> -->
       							</div>
       						</div>
       						<!-- END PANEL WITH FOOTER -->
