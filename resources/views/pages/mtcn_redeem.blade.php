@@ -30,7 +30,7 @@
       								<select class="form-control" id="inputEmail3" name="id_type" required>
       									<option value=" ">Select an ID</option>
       									<option value="Voter's ID">Voter's ID</option>
-      									<option value="NHIS">NHIS</option>
+      									<option value="Voter's ID">Voter's ID</option>
       									<option value="Passport">Passport</option>
       									<option value="Drivers License">Drivers License</option>
       									<option value="National ID">National ID</option>
