@@ -12,6 +12,10 @@
       @endcan
       @can('is_bank_cm')
         <li><a href="{{ route('bank_users_admin')}}" class=""><i class="lnr lnr-users"></i> <span>Users</span></a></li>
+        <li><a href="https://portal.myzeepay.com/EclipsePORTAL/index.jsf" class=""><i class="lnr lnr-sync"></i> <span>Redemption Portal</span></a></li>
+      @endcan
+      @can('is_bank_teller')
+          <li><a href="https://portal.myzeepay.com/EclipsePORTAL/index.jsf" class=""><i class="lnr lnr-sync"></i> <span>Redeem Voucher</span></a></li>
       @endcan
         <!-- <li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>Elements</span></a></li>
         <li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a></li>
