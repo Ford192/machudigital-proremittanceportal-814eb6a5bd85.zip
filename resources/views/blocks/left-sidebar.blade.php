@@ -14,7 +14,7 @@
         <li><a href="{{ route('bank_users_admin')}}" class=""><i class="lnr lnr-users"></i> <span>Users</span></a></li>
         <li><a href="https://portal.myzeepay.com/EclipsePORTAL/index.jsf" class=""><i class="lnr lnr-sync"></i> <span>Redemption Portal</span></a></li>
       @endcan
-      @can('bank_teller')
+      @can('is_teller')
           <li><a id="Aj_print" href="{{ url('/receipt/printable') }}" onclick="openWin()" class=""><i class="lnr lnr-printer"></i> <span>Print Last Receipt</span></a></li>
           <li><a href="https://portal.myzeepay.com/EclipsePORTAL/index.jsf" class=""><i class="lnr lnr-sync"></i> <span>Redeem Voucher</span></a></li>
       @endcan
