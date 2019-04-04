@@ -14,10 +14,10 @@
         <li><a href="{{ route('bank_users_admin')}}" class=""><i class="lnr lnr-users"></i> <span>Users</span></a></li>
         <li><a href="https://portal.myzeepay.com/EclipsePORTAL/index.jsf" class=""><i class="lnr lnr-sync"></i> <span>Redemption Portal</span></a></li>
       @endcan
-      @can('bank_teller')
-          <li><a id="Aj_print" onclick="openWin()" class=""><i class="lnr lnr-printer"></i> <span>Print Last Receipt</span></a></li>
+      @cannot('isAdmin')
+          <li><a id="Aj_print" href="{{ url('/receipt/printable') }}" onclick="openWin()" class=""><i class="lnr lnr-printer"></i> <span>Print Last Receipt</span></a></li>
           <li><a href="https://portal.myzeepay.com/EclipsePORTAL/index.jsf" class=""><i class="lnr lnr-sync"></i> <span>Redeem Voucher</span></a></li>
-      @endcan
+      @endcannot
         <!-- <li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>Elements</span></a></li>
         <li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a></li>
         <li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Panels</span></a></li>
@@ -41,7 +41,10 @@
   </div>
 </div>
 
+{{--
 <script type="text/javascript">
+
+
   function openWin()
   {
     myWindow=window.open("{{ url('/receipt/printable') }}",'receipt','height=1000,width=1200');
@@ -50,4 +53,4 @@
     // myWindow.close();
   }
   window.onload = openWin;
-</script>
+</script>--}}
