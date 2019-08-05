@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Transaction;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Services\DataTable;
 
 class TransactionsDataTable extends DataTable
@@ -39,7 +40,8 @@ class TransactionsDataTable extends DataTable
      */
     public function query(Transaction $model)
     {
-        return $model->newQuery()->select('id','transaction_id','rec_name','rec_id_type', 'rec_id_number','rec_dob', 's_name', 's_location','amount', 'purpose','mobile_account', 'bank_officer','created_at');
+        $users = \App\Http\Controllers\User::where('bank_id',Auth::user()->bank_id)->pluck('id')->toArray();
+        return $model->newQuery()->whereIn('bank_officer',$users)->select('id','transaction_id','rec_name','rec_id_type', 'rec_id_number','rec_dob', 's_name', 's_location','amount', 'purpose','mobile_account', 'bank_officer','created_at');
     }
 
     /**
