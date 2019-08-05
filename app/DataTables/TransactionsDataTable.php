@@ -34,10 +34,10 @@ class TransactionsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\User $model
+     * @param \App\Transaction $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model)
+    public function query(Transaction $model)
     {
         return $model->newQuery()->select('id','transaction_id','rec_name','rec_id_type', 'rec_id_number','rec_dob', 's_name', 's_location','amount', 'purpose','mobile_account', 'bank_officer','created_at');
     }
