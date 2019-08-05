@@ -16,16 +16,19 @@ class TransactionsDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $transaction = Transaction::find($query->id);
-        $agent = User::find($transaction->bank_officer);
 
         return datatables($query)->editColumn('created_at', '{!! $created_at !!}')
-            ->addColumn('branch',function ($query) use ($agent){
+            ->addColumn('branch',function ($query) {
+                $transaction = Transaction::find($query->id);
+                $agent = User::find($transaction->bank_officer);
+
                 return $agent->bank_branch;
-            })->addColumn('teller',function ($query) use ($agent){
+            })->addColumn('teller',function ($query){
+                $transaction = Transaction::find($query->id);
+                $agent = User::find($transaction->bank_officer);
+
                 return $agent->name;
-            })
-            ->addColumn('action', 'transactions.action');
+            });
     }
 
     /**
@@ -72,6 +75,7 @@ class TransactionsDataTable extends DataTable
             ['name' => 's_location', 'data' => 's_location', 'title'=> 'Sender Country', "className" => "text-center"],
             ['name' => 'amount', 'data' => 'amount', 'title'=> 'Amount (GHS)', "className" => "text-center"],
             ['name' => 'purpose', 'data' => 'purpose', 'title'=> 'Transfer Purpose', "className" => "text-center"],
+            ['name' => 'teller', 'data' => 'teller', 'title'=> 'Teller', "className" => "text-center"],
         ];
     }
 
