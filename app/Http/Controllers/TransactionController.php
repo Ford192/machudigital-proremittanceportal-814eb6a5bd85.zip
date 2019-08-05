@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\TransactionsDataTable;
+use App\Jobs\UpdateTransactionStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -137,8 +138,7 @@ class TransactionController extends Controller
 		$trs->bank_officer = Auth()->user()->id;
     $trs->save();
 
-    //TODO dispatch job to call shop to update transaction to paid.
-
+      dispatch(new UpdateTransactionStatus($trs));
     \Session::put('retn', $request->all());
     $hut = array('ht'=>1);
 
