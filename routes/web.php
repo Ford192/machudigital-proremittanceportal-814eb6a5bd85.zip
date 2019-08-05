@@ -48,7 +48,7 @@ Route::post('/user/create/new', 'UserController@create_new_user')->name('create_
 
 Route::post('/search/mtcn', 'TransactionController@mtcn_number_search')->name('mtcn_number_search');
 Route::post('/transaction/save', 'TransactionController@save_transaction')->name('mtcn_save');
-
+Route::get('/transactions/with-download','TransactionController@getDownloadableTransactions')->name('transactions.index.with-download');
 Route::get('/callback', function(Request $request){
   $http = New GuzzleHttp\Client;
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\TransactionsDataTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -115,25 +116,28 @@ class TransactionController extends Controller
     }
 
     $trs = new Trans();
-    $trs->transaction_id = session('trans_data')['id'];
-    $trs->mtcn = session('trans_data')['partner_id'];
-		$trs->rec_name = strtoupper(session('trans_data')['lastname'].' '.session('trans_data')['firstname']);
+      $transactionDetails = session('trans_data');
+      $trs->transaction_id = $transactionDetails['id'];
+    $trs->mtcn = $transactionDetails['partner_id'];
+		$trs->rec_name = strtoupper($transactionDetails['lastname'].' '. $transactionDetails['firstname']);
 		$trs->rec_id_type = strtoupper($_POST['id_type']);
 		$trs->rec_id_number =  $_POST['id_number'];
-		$trs->rec_country =  strtoupper(session('trans_data')['receiving_country']);
+		$trs->rec_country =  strtoupper($transactionDetails['receiving_country']);
 		$trs->rec_gender =  strtoupper($_POST['gender']);
 		$trs->rec_tel =  $_POST['phone'];
 		$trs->rec_dob =  $_POST['dob'];
-		$trs->s_name =  strtoupper(session('trans_data')['sender_lastname'].' '.session('trans_data')['sender_firstname']);
-		$trs->s_location =  strtoupper(session('trans_data')['sending_country']);
-		$trs->amount =  session('trans_data')['total_to_pay'];
-		$trs->rec_currency =  session('trans_data')['receiving_currency'];
-		$trs->service_type = session('trans_data')['service_type'];
-		$trs->purpose =  session('trans_data')['purpose'];
-		$trs->mobile_account = session('trans_data')['mobile_account'];
-		$trs->extra_id = session('trans_data')['extr_id'];
+		$trs->s_name =  strtoupper($transactionDetails['sender_lastname'].' '. $transactionDetails['sender_firstname']);
+		$trs->s_location =  strtoupper($transactionDetails['sending_country']);
+		$trs->amount =  $transactionDetails['total_to_pay'];
+		$trs->rec_currency =  $transactionDetails['receiving_currency'];
+		$trs->service_type = $transactionDetails['service_type'];
+		$trs->purpose =  array_key_exists('purpose',$transactionDetails) ? $transactionDetails['purpose'] : "Not Specified";
+		$trs->mobile_account = $transactionDetails['mobile_account'];
+		$trs->extra_id = $transactionDetails['extr_id'];
 		$trs->bank_officer = Auth()->user()->id;
     $trs->save();
+
+    //TODO dispatch job to call shop to update transaction to paid.
 
     \Session::put('retn', $request->all());
     $hut = array('ht'=>1);
@@ -148,5 +152,13 @@ class TransactionController extends Controller
     $transx = Trans::paginate(12);
     return view('pages.remitance', compact('transx'));
   }
+
+  public function getDownloadableTransactions(TransactionsDataTable $dataTable){
+       if (Auth::check() && Auth::user()->account_type == "bank_cm"){
+           return $dataTable->render('pages.transactions');
+       }
+       return abort(401);
+  }
+
 
 }
