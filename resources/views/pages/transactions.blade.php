@@ -1,9 +1,6 @@
 @extends('layouts.master-page')
 
 @section('added_styles')
-
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
@@ -23,11 +20,7 @@
                 </div>
             @endif
 
-            <h3 class="page-title" >Users</h3>
-
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter_user">
-                <i class="fa fa-plus"> </i> Add a User
-            </button>
+            <h3 class="page-title" >Transaction Report</h3>
             <br>
             <br>
             <!-- <p class="btn btn-warning"><i class="fa fa-plus"> </i> Add a Bank</p> -->
@@ -36,7 +29,7 @@
                     <!-- TABLE HOVER -->
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">List of Users</h3>
+                            <h3 class="panel-title">Transactions</h3>
                         </div>
                         <div class="panel-body">
 {{--                            {!! $dataTable->table() !!}--}}
