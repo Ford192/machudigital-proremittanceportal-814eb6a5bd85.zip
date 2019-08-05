@@ -32,7 +32,7 @@
                             <h3 class="panel-title">Transactions</h3>
                         </div>
                         <div class="panel-body">
-{{--                            {!! $dataTable->table() !!}--}}
+                            {!! $dataTable->table() !!}
                         </div>
                     </div>
                     <!-- END TABLE HOVER -->
