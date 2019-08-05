@@ -41,7 +41,7 @@ class TransactionsDataTable extends DataTable
     public function query(Transaction $model)
     {
         $users = \App\User::where('bank',Auth::user()->bank)->pluck('id')->toArray();
-        return $model->newQuery()->whereIn('bank_officer',$users)->select('id','transaction_id','rec_name','rec_id_type', 'rec_id_number','rec_dob', 's_name', 's_location','amount', 'purpose','mobile_account', 'bank_officer','created_at');
+        return $model->newQuery()->latest()->whereIn('bank_officer',$users)->select('id','transaction_id','rec_name','rec_id_type', 'rec_id_number','rec_dob', 's_name', 's_location','amount', 'purpose','mobile_account', 'bank_officer','created_at');
     }
 
     /**
