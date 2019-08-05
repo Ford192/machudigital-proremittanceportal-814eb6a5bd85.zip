@@ -79,6 +79,7 @@ class TransactionsDataTable extends DataTable
             ['name' => 'purpose', 'data' => 'purpose', 'title'=> 'Transfer Purpose', "className" => "text-center"],
             ['name' => 'teller', 'data' => 'teller', 'title'=> 'Teller', "className" => "text-center"],
             ['name' => 'branch', 'data' => 'branch', 'title'=> 'Branch', "className" => "text-center"],
+            ['name' => 'created_at', 'data' => 'created_at', 'title'=> 'Date Created', "className" => "text-center"],
         ];
     }
 
