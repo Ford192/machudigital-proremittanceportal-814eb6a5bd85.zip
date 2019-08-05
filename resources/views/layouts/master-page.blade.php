@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<meta name="description" content="Portal to confirm Zeepay Remittances">
-  <meta name="author" content="Zeepay Ghana (Dennis Machu)">
+  <meta name="author" content="Zeepay Ghana (Dennis Machu, Nana yaw)">
 	<!-- VENDOR CSS -->
 	<link rel="stylesheet" href="{{ url('/vendor/bootstrap/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="{{ url('/vendor/font-awesome/css/font-awesome.min.css') }}">
@@ -33,13 +33,17 @@
 		<!-- NAVBAR -->
     @include('blocks.navbar')
 		<!-- LEFT SIDEBAR -->
-		@can('isAdmin')
+		{{--@can('isAdmin')
     	@include('blocks.left-sidebar')
 		@endcan
 
 		@can('is_bank_cm')
     	@include('blocks.left-sidebar')
-		@endcan
+		@endcan--}}
+
+		<!-- Show Side Bar for All -->
+		@include('blocks.left-sidebar')
+
 		<!-- END LEFT SIDEBAR -->
 		<!-- MAIN -->
     @yield('content')
@@ -47,7 +51,7 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">&copy; {{ date("Y") }} Zeepay Ghana.All rights reserved.|Powered by: Zeepay</p>
+				<p class="copyright">&copy; {{ date("Y") }} Zeepay Ghana. All rights reserved.|Powered by: Zeepay</p>
 			</div>
 		</footer>
 	</div>

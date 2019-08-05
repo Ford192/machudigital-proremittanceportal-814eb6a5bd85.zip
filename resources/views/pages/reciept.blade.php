@@ -11,7 +11,7 @@
     <title>Receipt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   	<meta name="description" content="Portal to confirm Zeepay Remittances">
-    <meta name="author" content="Zeepay Ghana (Dennis Machu)">
+    <meta name="author" content="Zeepay Ghana (Dennis Machu, Nana Yaw)">
   </head>
 
   <style media="print">
@@ -151,7 +151,7 @@
       {
         myWindow=window.open("https://www.w3schools.com");
         myWindow.focus();
-    myWindow.print();
+        myWindow.print();
     // myWindow.close();
       }
     </script>
