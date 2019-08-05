@@ -39,7 +39,7 @@
                             <h3 class="panel-title">List of Users</h3>
                         </div>
                         <div class="panel-body">
-                            {!! $dataTable->table() !!}
+{{--                            {!! $dataTable->table() !!}--}}
                         </div>
                     </div>
                     <!-- END TABLE HOVER -->
