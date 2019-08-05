@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="{{ url('/vendor/font-awesome/css/font-awesome.min.css') }}">
 	<link rel="stylesheet" href="{{ url('/vendor/linearicons/style.css') }}">
 	<link rel="stylesheet" href="{{ url('/vendor/chartist/css/chartist-custom.css') }}">
-    <link href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet">
+{{--    <link href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet">--}}
 	<!-- MAIN CSS -->
 	<link rel="stylesheet" href="{{ url('/css/main.css') }}">
 	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->

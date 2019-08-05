@@ -85,6 +85,7 @@
 @section('added_scripts')
 	<script src="{{ url('/scripts/klorofil-common.js') }}"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 {{--	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>--}}
 {{--	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>--}}
 {{--	<script>
