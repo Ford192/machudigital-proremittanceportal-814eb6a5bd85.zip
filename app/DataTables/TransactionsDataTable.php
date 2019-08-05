@@ -52,7 +52,7 @@ class TransactionsDataTable extends DataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->addAction(['width' => '80px'])
+//                    ->addAction(['width' => '80px'])
                     ->parameters($this->getBuilderParameters());
     }
 
@@ -64,7 +64,7 @@ class TransactionsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            ['name' => 'id', 'data' => 'id', 'title'=> '#', "className" => "text-center"],
+//            ['name' => 'id', 'data' => 'id', 'title'=> '#', "className" => "text-center"],
             ['name' => 'transaction_id', 'data' => 'transaction_id', 'title'=> 'instntnmny id', "className" => "text-center"],
             ['name' => 'rec_name', 'data' => 'rec_name', 'title'=> 'Receiver Name', "className" => "text-center"],
             ['name' => 'rec_id_type', 'data' => 'rec_id_type', 'title'=> 'Receiver ID Type', "className" => "text-center"],
@@ -76,6 +76,7 @@ class TransactionsDataTable extends DataTable
             ['name' => 'amount', 'data' => 'amount', 'title'=> 'Amount (GHS)', "className" => "text-center"],
             ['name' => 'purpose', 'data' => 'purpose', 'title'=> 'Transfer Purpose', "className" => "text-center"],
             ['name' => 'teller', 'data' => 'teller', 'title'=> 'Teller', "className" => "text-center"],
+            ['name' => 'branch', 'data' => 'branch', 'title'=> 'Branch', "className" => "text-center"],
         ];
     }
 
