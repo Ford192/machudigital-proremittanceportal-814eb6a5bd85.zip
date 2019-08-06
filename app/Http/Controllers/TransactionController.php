@@ -132,7 +132,7 @@ class TransactionController extends Controller
 		$trs->amount =  $transactionDetails['total_to_pay'];
 		$trs->rec_currency =  $transactionDetails['receiving_currency'];
 		$trs->service_type = $transactionDetails['service_type'];
-		$trs->purpose =  array_key_exists('purpose',$transactionDetails) ? $transactionDetails['purpose'] : "Not Specified";
+		$trs->purpose =  (array_key_exists('purpose',$transactionDetails) && !empty($transactionDetails['purpose'])) ? $transactionDetails['purpose'] : "Not Specified";
 		$trs->mobile_account = $transactionDetails['mobile_account'];
 		$trs->extra_id = $transactionDetails['extr_id'];
 		$trs->bank_officer = Auth()->user()->id;
