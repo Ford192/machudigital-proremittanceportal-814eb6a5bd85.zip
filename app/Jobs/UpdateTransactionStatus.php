@@ -37,10 +37,15 @@ class UpdateTransactionStatus implements ShouldQueue
      */
     public function handle()
     {
+        Log::info("[UpdateTransactionStatus][".$this->transaction->id."]\t Called...");
         try{
 
             $ptoken = Ptoken::where('status',1)->orderBy('created_at','desc')->first();
+
+            Log::info("[UpdateTransactionStatus][".$this->transaction->id."]\t Token Object...",(!empty($ptoken) ? $ptoken->toArray() : []));
             $ptk = $ptoken->token;
+
+            Log::info("[UpdateTransactionStatus][".$this->transaction->id."]\t final extracted token...".$ptk);
 
             $httpClient = new Client([
                 'headers' => [
@@ -48,9 +53,14 @@ class UpdateTransactionStatus implements ShouldQueue
                     'Authorization' => $ptk,
                 ]]);
 
-            $requests = $httpClient->request('POST', "https://shop.digitaltermination.com/api/transactions/cash-pick-ups/call-back/".$this->transaction->transaction_id);
-            Log::info("[UpdateTransactionStatus]\t HTTP Response Status Code: ".$requests->getStatusCode());
-            Log::info("[UpdateTransactionStatus]\t HTTP Response Body: ".$requests->getBody());
+            $url = "https://shop.digitaltermination.com/api/transactions/cash-pick-ups/call-back/".$this->transaction->transaction_id;
+
+            Log::info("[UpdateTransactionStatus][".$this->transaction->id."]\t final URL...".$url);
+
+            $httpResponse = $httpClient->post($url,['headers' => ["Authorization" => $ptk]]);
+//            $requests = $httpClient->request('POST', "https://shop.digitaltermination.$httpResponse/api/transactions/cash-pick-ups/call-back/".$this->transaction->transaction_id);
+            Log::info("[UpdateTransactionStatus]\t HTTP Response Status Code: ".$httpResponse->getStatusCode());
+            Log::info("[UpdateTransactionStatus]\t HTTP Response Body: ".$httpResponse->getBody());
 
         } catch (ClientException $exception){
             Log::error("[UpdateTransactionStatus]\tClientException... Error: ".$exception->getResponse()->getBody()->getContents());
