@@ -50,7 +50,11 @@ class UserController extends Controller
   public function all_users()
   {
     activity()->log('User ['.Auth::user()->email.'] view all users');
-    $usr = User::all();
+    if (!empty(Auth::user()->bank))
+        $usr = User::where('bank',Auth::user()->bank)->get();
+    else
+        $usr = User::all();
+
     return view('pages.users', compact('usr'));
   }
 

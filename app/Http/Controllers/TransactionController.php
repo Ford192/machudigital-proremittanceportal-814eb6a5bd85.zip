@@ -153,7 +153,9 @@ class TransactionController extends Controller
     return view('pages.remitance', compact('transx'));
   }
 
-  public function getDownloadableTransactions(TransactionsDataTable $dataTable){
+  public function getDownloadableTransactions(TransactionsDataTable $dataTable, Request $request){
+
+      \Log::info($request->getQueryString());
        if (Auth::check() && Auth::user()->account_type == "bank_cm"){
            return $dataTable->render('pages.transactions');
        }
