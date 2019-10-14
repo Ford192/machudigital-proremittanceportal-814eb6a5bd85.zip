@@ -99,6 +99,11 @@ class UserController extends Controller
         ->with('message', 'User Not Added. Try again later');
     }
 
+    if (\App\User::where('email',$request->email)->count() > 0){
+        return redirect()->back()
+            ->with('status', 'success')
+            ->with('message', 'User Already Exists');
+    }
     $usera = new User;
     $usera->name = strtoupper($request->full_name);
     $usera->email = $request->email;
@@ -111,7 +116,7 @@ class UserController extends Controller
     activity()->log('User ['.Auth::user()->email.'] created new User ['.$request->email.']');
 
     return redirect()->back()
-      ->with('status', 'success')
+      ->with('status', 'warning')
       ->with('message', 'User Created');
   }
   //
