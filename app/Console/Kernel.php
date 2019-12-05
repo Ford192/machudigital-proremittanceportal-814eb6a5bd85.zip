@@ -42,7 +42,7 @@ class Kernel extends ConsoleKernel
             });
 
             \Mail::raw("Daily Transaction Dump", function ($message) use ($filename) {
-                $message->to("Harriet.Agyekum@accessbankplc.com")->cc("eugene.afeti@myzeepay.com")->attach(storage_path("app/".$filename))->subject("Access Transactions Dump Transaction Dump - ".\Carbon\Carbon::now()->subDay()->format("Y-m-d"));
+                $message->to("Harriet.Agyekum@accessbankplc.com")->cc("eugene.afeti@myzeepay.com")->attach(storage_path("app/".$filename))->subject("Access Transactions - ".\Carbon\Carbon::now()->subDay()->format("Y-m-d"));
             });
         })->dailyAt("06");
     }
