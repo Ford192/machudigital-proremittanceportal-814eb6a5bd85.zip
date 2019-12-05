@@ -30,7 +30,8 @@ class Kernel extends ConsoleKernel
 
             $users = \App\User::where('bank',1)->pluck('id')->toArray();
             $filename = "access-bank-transactions-".\Carbon\Carbon::now()->subDay()->format('Y-m-d').".csv";
-            \App\Transaction::whereDate('created_at',\Carbon\Carbon::now()->subDay()->format('Y-m-d'))->whereIn('bank_officer',$users)->chunk(100, function($transactions) use ($filename){
+            $transactionsQuery = \App\Transaction::whereDate('created_at', \Carbon\Carbon::now()->subDay()->format('Y-m-d'))->whereIn('bank_officer', $users);
+            $transactionsQuery->chunk(100, function($transactions) use ($filename){
                 foreach ($transactions as $transaction){
                     $user = \App\User::find($transaction->bank_officer);
                     if (!empty($user)) {
@@ -41,9 +42,12 @@ class Kernel extends ConsoleKernel
                 }
             });
 
-            \Mail::raw("Daily Transaction Dump", function ($message) use ($filename) {
-                $message->to("Harriet.Agyekum@accessbankplc.com")->cc("eugene.afeti@myzeepay.com")->attach(storage_path("app/".$filename))->subject("Access Transactions - ".\Carbon\Carbon::now()->subDay()->format("Y-m-d"));
-            });
+            if ($transactionsQuery->count() >  0){
+                \Mail::raw("Daily Transaction Dump", function ($message) use ($filename) {
+                    $message->to("Harriet.Agyekum@accessbankplc.com")->cc("eugene.afeti@myzeepay.com")->attach(storage_path("app/".$filename))->subject("Access Transactions - ".\Carbon\Carbon::now()->subDay()->format("Y-m-d"));
+                });
+            }
+
         })->dailyAt("06");
     }
 
