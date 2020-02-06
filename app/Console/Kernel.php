@@ -37,7 +37,10 @@ class Kernel extends ConsoleKernel
                     if (!empty($user)) {
                         $bank = \App\Bank::find($user->bank_id);
                     }
-                    $content = $transaction->id.",".$transaction->created_at.",".$transaction->rec_name.",".$transaction->rec_country.",".$transaction->mobile_account.",".$transaction->transaction_id.",".$transaction->s_name.",".$transaction->extra_id.",".$transaction->rec_currency.",".$transaction->amount.",".(!empty($bank) ? $bank->name: "");
+                    $content =
+                        $transaction->id.",".$transaction->rec_name.",".$transaction->rec_id_type.",".$transaction->mobile_account.",".$transaction->rec_id_number.",".$transaction->rec_dob.","
+                        .$transaction->s_name.",".$transaction->s_location.",".$transaction->amount.",".$transaction->purpose."," .$user->name.",".$user->bank_branch
+                        ."," .$transaction->created_at ."," .$transaction->updated_at.",".(!empty($bank) ? $bank->name : "None");
                     \Storage::disk('local')->append($filename,$content);
                 }
             });
@@ -46,7 +49,7 @@ class Kernel extends ConsoleKernel
 
             if ($transactionsQuery->count() >  0){
                 \Mail::raw("Daily Transaction Dump - Cash Pick Up", function ($message) use ($filename) {
-                    $message->to("Harriet.Agyekum@accessbankplc.com")->cc("tpu@myzeepay.com")->cc("eugene.afeti@myzeepay.com")->attach(storage_path("app/".$filename))->subject("Access Transactions - ".\Carbon\Carbon::now()->subDay()->format("Y-m-d"));
+                    $message->to("Harriet.Agyekum@accessbankplc.com")->to("Joseph.Tekpor@accessbankplc.com")->cc("tpu@myzeepay.com")->cc("eugene.afeti@myzeepay.com")->attach(storage_path("app/".$filename))->subject("Access Transactions - ".\Carbon\Carbon::now()->subDay()->format("Y-m-d"));
                 });
             }
 
