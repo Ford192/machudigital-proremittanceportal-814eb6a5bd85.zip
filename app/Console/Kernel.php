@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
                 foreach ($transactions as $transaction){
                     $user = \App\User::find($transaction->bank_officer);
                     if (!empty($user)) {
-                        $bank = \App\Bank::find($user->bank_id);
+                        $bank = \App\Bank::find($user->bank);
                     }
                     $content =
                         $transaction->id.",".$transaction->rec_name.",".$transaction->rec_id_type.",".$transaction->mobile_account.",".$transaction->rec_id_number.",".$transaction->rec_dob.","
