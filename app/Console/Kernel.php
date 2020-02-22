@@ -30,6 +30,8 @@ class Kernel extends ConsoleKernel
 
             $users = \App\User::where('bank',1)->pluck('id')->toArray();
             $filename = "access-bank-transactions-".\Carbon\Carbon::now()->subDay()->format('Y-m-d').".csv";
+            \Storage::disk('local')->put($filename, "Remit Portal ID, Zeepay Transaction ID, Receiver Name, ID Type, MSISDN, Receiver ID Number,
+             Receiver DOB, Sender Name, Sender Country, Amount, Purpose, Teller, Branch\n");
             $transactionsQuery = \App\Transaction::whereDate('created_at', \Carbon\Carbon::now()->subDay()->format('Y-m-d'))->whereIn('bank_officer', $users);
             $transactionsQuery->chunk(100, function($transactions) use ($filename){
                 foreach ($transactions as $transaction){
@@ -38,7 +40,7 @@ class Kernel extends ConsoleKernel
                         $bank = \App\Bank::find($user->bank);
                     }
                     $content =
-                        $transaction->id.",".$transaction->rec_name.",".$transaction->rec_id_type.",".$transaction->mobile_account.",".$transaction->rec_id_number.",".$transaction->rec_dob.","
+                        $transaction->id.",".$transaction->transaction_id.",".$transaction->rec_name.",".$transaction->rec_id_type.",".$transaction->mobile_account.",".$transaction->rec_id_number.",".$transaction->rec_dob.","
                         .$transaction->s_name.",".$transaction->s_location.",".$transaction->amount.",".$transaction->purpose."," .$user->name.",".$user->bank_branch
                         ."," .$transaction->created_at ."," .$transaction->updated_at.",".(!empty($bank) ? $bank->name : "None");
                     \Storage::disk('local')->append($filename,$content);
