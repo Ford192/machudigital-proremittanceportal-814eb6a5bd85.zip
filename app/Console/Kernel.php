@@ -30,8 +30,7 @@ class Kernel extends ConsoleKernel
 
             $users = \App\User::where('bank',1)->pluck('id')->toArray();
             $filename = "access-bank-transactions-".\Carbon\Carbon::now()->subDay()->format('Y-m-d').".csv";
-            \Storage::disk('local')->put($filename, "Remit Portal ID, Zeepay Transaction ID, Receiver Name, ID Type, MSISDN, Receiver ID Number,
-             Receiver DOB, Sender Name, Sender Country, Amount, Purpose, Teller, Branch\n");
+            \Storage::disk('local')->put($filename, "Remit Portal ID, Zeepay Transaction ID, Receiver Name, ID Type, MSISDN, Receiver ID Number,Receiver DOB, Sender Name, Sender Country, Amount, Purpose, Teller, Branch\n");
             $transactionsQuery = \App\Transaction::whereDate('created_at', \Carbon\Carbon::now()->subDay()->format('Y-m-d'))->whereIn('bank_officer', $users);
             $transactionsQuery->chunk(100, function($transactions) use ($filename){
                 foreach ($transactions as $transaction){
