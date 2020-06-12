@@ -18,6 +18,7 @@
       @endcan
 
       @can('is_teller')
+              <li><a href="{{ route('transactions.index.with-download')}}" class=""><i class="lnr lnr-printer"></i> <span>Transactions Report</span></a></li>
           <li><a id="Aj_print" href="{{ url('/receipt/printable') }}" onclick="openWin()" class=""><i class="lnr lnr-printer"></i> <span>Print Last Receipt</span></a></li>
           <li><a href="https://portal.myzeepay.com/EclipsePORTAL/index.jsf" class=""><i class="lnr lnr-sync"></i> <span>Redeem Voucher</span></a></li>
       @endcan
