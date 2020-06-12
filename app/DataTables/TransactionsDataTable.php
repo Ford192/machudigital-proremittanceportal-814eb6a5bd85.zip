@@ -44,7 +44,7 @@ class TransactionsDataTable extends DataTable
          $model = $model->newQuery()->latest();
 
          if (\Auth::user()->account_type == "bank_teller"){
-             $model = $model->where('user_id_id',Auth::user()->id);
+             $model = $model->where('bank_officer',Auth::user()->id);
          }else{
              $users = \App\User::where('bank',Auth::user()->bank)->pluck('id')->toArray();
 
