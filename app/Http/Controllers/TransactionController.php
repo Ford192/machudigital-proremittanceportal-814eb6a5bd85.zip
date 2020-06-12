@@ -156,7 +156,7 @@ class TransactionController extends Controller
   public function getDownloadableTransactions(TransactionsDataTable $dataTable, Request $request){
 
       \Log::info($request->getQueryString());
-       if (Auth::check() && Auth::user()->account_type == "bank_cm"){
+       if (Auth::check() && (Auth::user()->account_type == "bank_cm" || Auth::user()->account_type == "bank_teller")){
            return $dataTable->render('pages.transactions');
        }
        return abort(401);
