@@ -49,7 +49,8 @@ class UpdateTransactionStatus implements ShouldQueue
 
             $ptoken = Ptoken::where('status',1)->orderBy('created_at','desc')->first();
 
-            Log::info("[UpdateTransactionStatus][".$this->transaction->id."]\t Token Object...",(!empty($ptoken) ? $ptoken->toArray() : []));
+            Log::info("[UpdateTransactionStatus][".$this->transaction->id."]\t Token Object...",
+                (!empty($ptoken) ? $ptoken->toArray() : []));
             $ptk = $ptoken->token;
 
             Log::info("[UpdateTransactionStatus][".$this->transaction->id."]\t final extracted token...".$ptk);
@@ -60,7 +61,8 @@ class UpdateTransactionStatus implements ShouldQueue
                     'Authorization' => $ptk,
                 ]]);
 
-            $url = "https://shop.digitaltermination.com/api/transactions/cash-pick-ups/call-back/".$this->transaction->transaction_id;
+            $url = "https://shop.digitaltermination.com/api/transactions/cash-pick-ups/call-back/"
+                .$this->transaction->transaction_id;
 
             Log::info("[UpdateTransactionStatus][".$this->transaction->id."]\t final URL...".$url);
 
@@ -80,14 +82,19 @@ class UpdateTransactionStatus implements ShouldQueue
                     "hostname" => "remit-portal",
                 ]
             ]);
-//            $requests = $httpClient->request('POST', "https://shop.digitaltermination.$httpResponse/api/transactions/cash-pick-ups/call-back/".$this->transaction->transaction_id);
-            Log::info("[UpdateTransactionStatus]\t HTTP Response Status Code: ".$httpResponse->getStatusCode());
-            Log::info("[UpdateTransactionStatus]\t HTTP Response Body: ".$httpResponse->getBody());
+//            $requests = $httpClient->request('POST',
+// "https://shop.digitaltermination.$httpResponse/api/transactions/cash-pick-ups/call-back/".$this->transaction->transaction_id);
+            Log::info("[UpdateTransactionStatus]\t HTTP Response Status Code: "
+                .$httpResponse->getStatusCode());
+            Log::info("[UpdateTransactionStatus]\t HTTP Response Body: "
+                .$httpResponse->getBody());
 
         } catch (ClientException $exception){
-            Log::error("[UpdateTransactionStatus]\tClientException... Error: ".$exception->getResponse()->getBody()->getContents());
+            Log::error("[UpdateTransactionStatus]\tClientException... Error: "
+                .$exception->getResponse()->getBody()->getContents());
         }catch (RequestException $exception){
-            Log::error("[UpdateTransactionStatus]\tRequestException... Error: ".$exception->getResponse()->getBody()->getContents());
+            Log::error("[UpdateTransactionStatus]\tRequestException... Error: "
+                .$exception->getResponse()->getBody()->getContents());
         }catch (\Exception $exception){
             Log::error("[UpdateTransactionStatus]\tException... Error: ".$exception->getMessage());
 
