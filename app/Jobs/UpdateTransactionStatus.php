@@ -80,7 +80,7 @@ class UpdateTransactionStatus implements ShouldQueue
                     ],
                     "branch" => $user->bank_branch,
                     "payer_code" => $bank->payer_code,
-                    "completed_on" => \Carbon\Carbon::now()->format("Y-m-d\TH:i:s\Z"),
+                    "completed_on" => $this->transaction->update_at->format("Y-m-d\TH:i:s\Z"),
                     "action" => "complete",
                     "employee" => $user->name,
                     "hostname" => "remit-portal",
