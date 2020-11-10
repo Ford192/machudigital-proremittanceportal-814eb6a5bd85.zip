@@ -46,6 +46,7 @@ Route::get('/admin/show/users/all', 'UserController@all_users')->name('all_users
 Route::get('/person/{id}/state/{sid}/change', 'UserController@change_state');
 Route::post('/user/create/new', 'UserController@create_new_user')->name('create_new_person');
 
+
 Route::post('/search/mtcn', 'TransactionController@mtcn_number_search')->name('mtcn_number_search');
 Route::post('/transaction/save', 'TransactionController@save_transaction')->name('mtcn_save');
 Route::get('/transactions/with-download','TransactionController@getDownloadableTransactions')->name('transactions.index.with-download');
