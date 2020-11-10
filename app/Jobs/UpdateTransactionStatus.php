@@ -42,7 +42,10 @@ class UpdateTransactionStatus implements ShouldQueue
 
             $user = \App\User::find($this->transaction->bank_officer);
 
-            if (empty($user)){
+            $bank = \App\Bank::find($user->bank);
+
+
+            if (empty($user) || empty($bank)){
                 Log::info("[UpdateTransactionStatus][".$this->transaction->id."]\t User is empty exiting...");
                 return;
             }
@@ -66,6 +69,7 @@ class UpdateTransactionStatus implements ShouldQueue
 
             Log::info("[UpdateTransactionStatus][".$this->transaction->id."]\t final URL...".$url);
 
+
             $httpResponse = $httpClient->post($url,[
                 'headers' => ["Authorization" => $ptk],
                 'json' => [
@@ -75,7 +79,7 @@ class UpdateTransactionStatus implements ShouldQueue
                         "number" => $this->transaction->rec_id_number,
                     ],
                     "branch" => $user->bank_branch,
-                    "payer_code" => null,
+                    "payer_code" => $bank->payer_code,
                     "completed_on" => \Carbon\Carbon::now()->format("Y-m-d\TH:i:s\Z"),
                     "action" => "complete",
                     "employee" => $user->name,
