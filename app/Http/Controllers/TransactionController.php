@@ -74,14 +74,17 @@ class TransactionController extends Controller
          // 'Postman-Token' => '74ed6401-7d5c-4e69-b305-49f9cd2ac5ed',
        ]]);
 
+
+
+     $requests = $clientz->request('GET', $url_tot);
+
       \Log::info("[TransactionController][mtcn_search][".$mtcn_number."]\t HTTP Status Code: "
           .$requests->getStatusCode());
       \Log::info("[TransactionController][mtcn_search][".$mtcn_number."]\t HTTP Response Body: "
           .$requests->getBody());
 
       
-     $requests = $clientz->request('GET', $url_tot);
-     $resp = json_decode($requests->getBody(), true);
+      $resp = json_decode($requests->getBody(), true);
 
 
       // $clientz->send();
