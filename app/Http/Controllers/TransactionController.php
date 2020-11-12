@@ -83,7 +83,7 @@ class TransactionController extends Controller
       \Log::info("[TransactionController][mtcn_search][".$mtcn_number."]\t HTTP Response Body: "
           .$requests->getBody());
 
-      
+
       $resp = json_decode($requests->getBody(), true);
 
 
