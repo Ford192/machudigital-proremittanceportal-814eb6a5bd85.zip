@@ -63,6 +63,7 @@ class TransactionController extends Controller
 
      $url_tot = "https://shop.digitaltermination.com/api/transactions/".$mtcn_number."/cash-pick-ups/look-up";
 
+     \Log::info("[TransactionController][mtcn_search][".$mtcn_number."]\t URL: ".$url_tot);
      // $url_tot = "https://shop.digitaltermination.com/api/transactions/".$mtcn_number;
 
      $clientz = new Client([
@@ -72,8 +73,17 @@ class TransactionController extends Controller
          'Cache-Control' => 'no-cache',
          // 'Postman-Token' => '74ed6401-7d5c-4e69-b305-49f9cd2ac5ed',
        ]]);
+
+      \Log::info("[TransactionController][mtcn_search][".$mtcn_number."]\t HTTP Status Code: "
+          .$requests->getStatusCode());
+      \Log::info("[TransactionController][mtcn_search][".$mtcn_number."]\t HTTP Response Body: "
+          .$requests->getBody());
+
+      
      $requests = $clientz->request('GET', $url_tot);
      $resp = json_decode($requests->getBody(), true);
+
+
       // $clientz->send();
       // dd(json_decode($requests->getBody(), true));
       // return $requests->getStatusCode();
