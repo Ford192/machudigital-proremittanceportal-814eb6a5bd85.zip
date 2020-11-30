@@ -82,7 +82,8 @@ class Kernel extends ConsoleKernel
 
             if ($transactionsQuery->count() >  0){
                 \Mail::raw("Daily Transaction Dump - Cash Pick Up", function ($message) use ($filename) {
-                    $message->cc("gk@myzeepay.com")->cc("tpu@myzeepay.com")->attach(storage_path("app/".$filename))->subject("Cash Pickup Transactions - ".\Carbon\Carbon::now()->subDay()->format("Y-m-d"));
+                    $message->cc("gk@myzeepay.com")->cc("tpu@myzeepay.com")->attach(storage_path("app/".$filename))
+                        ->subject("Cash Pickup Transactions - ".\Carbon\Carbon::now()->subDay()->format("Y-m-d"));
                 });
             }
 
