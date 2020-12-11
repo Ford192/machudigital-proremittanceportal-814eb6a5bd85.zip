@@ -62,40 +62,39 @@ class Kernel extends ConsoleKernel
         })->dailyAt("06");
 
         $schedule->call(function (){
-
-            $filename = "pickup--transactions-".\Carbon\Carbon::now()->subDay()->format('Y-m-d').".csv";
-            \Storage::disk('local')->put($filename, "Remit Portal ID, Zeepay Transaction ID, Receiver Name, ID Type," .
-                " MSISDN, Receiver ID Number,Receiver DOB, Sender Name, Sender Country, Amount, Purpose, Teller, "
-                ."Branch\n");
-
-
-            $transactionsQuery = \App\Transaction::whereDate('created_at',
-                \Carbon\Carbon::now()->subDay()->format('Y-m-d'));
-            $transactionsQuery->chunk(100, function($transactions) use ($filename){
-                foreach ($transactions as $transaction){
-                    $user = \App\User::find($transaction->bank_officer);
-                    if (!empty($user)) {
-                        $bank = \App\Bank::find($user->bank);
+            \Log::info("[Console][Kernel]\t called for cash-pick up: ");
+            try {
+                $filename = "pickup--transactions-" . \Carbon\Carbon::now()->subDay()->format('Y-m-d') . ".csv";
+                \Storage::disk('local')->put($filename, "Remit Portal ID, Zeepay Transaction ID, Receiver Name,"
+                    ." ID Type, MSISDN, Receiver ID Number,Receiver DOB, Sender Name, Sender Country, Amount, Purpose,"
+                    ." Teller, Branch\n");
+                $transactionsQuery = \App\Transaction::whereDate('created_at',
+                    \Carbon\Carbon::now()->subDay()->format('Y-m-d'));
+                $transactionsQuery->chunk(100, function ($transactions) use ($filename) {
+                    foreach ($transactions as $transaction) {
+                        $user = \App\User::find($transaction->bank_officer);
+                        if (!empty($user)) {
+                            $bank = \App\Bank::find($user->bank);
+                        }
+                        $content =
+                            $transaction->id . "," . $transaction->transaction_id . "," . $transaction->rec_name . ","
+                            . $transaction->rec_id_type . "," . $transaction->mobile_account . "," .
+                            $transaction->rec_id_number . "," . $transaction->rec_dob . "," . $transaction->s_name . ","
+                            . $transaction->s_location . "," . $transaction->amount . "," . $transaction->purpose . ","
+                            . $user->name . "," . $user->bank_branch . "," . $transaction->created_at . "," .
+                            $transaction->updated_at . "," . (!empty($bank) ? $bank->name : "None");
+                        \Storage::disk('local')->append($filename, $content);
                     }
-                    $content =
-                        $transaction->id.",".$transaction->transaction_id.",".$transaction->rec_name.","
-                        .$transaction->rec_id_type.",".$transaction->mobile_account.",".$transaction->rec_id_number.","
-                        .$transaction->rec_dob."," .$transaction->s_name.",".$transaction->s_location.","
-                        .$transaction->amount.",".$transaction->purpose."," .$user->name.",".$user->bank_branch
-                        ."," .$transaction->created_at ."," .$transaction->updated_at.","
-                        .(!empty($bank) ? $bank->name : "None");
-                    \Storage::disk('local')->append($filename,$content);
-                }
-            });
-
-
-
-            if ($transactionsQuery->count() >  0){
-                \Mail::raw("Daily Transaction Dump - Cash Pick Up", function ($message) use ($filename) {
-                    $message->to("gk@myzeepay.com")->cc("tpu@myzeepay.com")->cc('technical@myzeepay.com')
-                        ->attach(storage_path("app/".$filename))->subject("Cash Pickup Transactions - "
-                            .\Carbon\Carbon::now()->subDay()->format("Y-m-d"));
                 });
+                if ($transactionsQuery->count() > 0) {
+                    \Mail::raw("Daily Transaction Dump - Cash Pick Up", function ($message) use ($filename) {
+                        $message->to("gk@myzeepay.com")->cc("tpu@myzeepay.com")->cc('technical@myzeepay.com')
+                            ->attach(storage_path("app/" . $filename))->subject("Cash Pickup Transactions - "
+                                . \Carbon\Carbon::now()->subDay()->format("Y-m-d"));
+                    });
+                }
+            } catch (\Exception $e) {
+                \Log::error("[Console][Kernel]\t Error: ".$e->getMessage());
             }
 
         })->dailyAt("05");
