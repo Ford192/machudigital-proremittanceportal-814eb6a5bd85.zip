@@ -63,7 +63,7 @@ class TransactionController extends Controller
      $ptk = $ptoken->token;
 
      $url_tot = "https://shop.digitaltermination.com/api/transactions/"
-         .$mtcn_number."/cash-pick-ups".$user->country_code."/look-up";
+         .$mtcn_number."/cash-pick-ups/".$user->country_code."/look-up";
 
      \Log::info("[TransactionController][mtcn_search][".$mtcn_number."]\t URL: ".$url_tot);
      // $url_tot = "https://shop.digitaltermination.com/api/transactions/".$mtcn_number;
