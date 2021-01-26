@@ -111,6 +111,7 @@ class UserController extends Controller
     $usera->bank = $request->bank;
     $usera->bank_branch = $request->bank_branch;
     $usera->password = Hash::make($request->password);
+    $usera->country_code = \Auth::user()->country_code;
     $usera->save();
 
     activity()->log('User ['.Auth::user()->email.'] created new User ['.$request->email.']');

@@ -58,10 +58,12 @@ class TransactionController extends Controller
   public function mtcn_search($mtcn_number)
   {
 
+      $user = \Auth::user();
      $ptoken = Ptoken::where('status',1)->orderBy('created_at','desc')->first();
      $ptk = $ptoken->token;
 
-     $url_tot = "https://shop.digitaltermination.com/api/transactions/".$mtcn_number."/cash-pick-ups/look-up";
+     $url_tot = "https://shop.digitaltermination.com/api/transactions/"
+         .$mtcn_number."/cash-pick-ups".$user->country_code."/look-up";
 
      \Log::info("[TransactionController][mtcn_search][".$mtcn_number."]\t URL: ".$url_tot);
      // $url_tot = "https://shop.digitaltermination.com/api/transactions/".$mtcn_number;
