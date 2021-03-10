@@ -45,6 +45,7 @@ class BankController extends Controller
         $bk->bank_logo = $destination.'/'.$bk->bank_logo;
       }
 
+       $bk->payer_code = str_random(8);
        $bk->save();
 
        $all_banks = Bank::get();
