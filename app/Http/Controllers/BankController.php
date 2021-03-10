@@ -46,6 +46,7 @@ class BankController extends Controller
       }
 
        $bk->payer_code = str_random(8);
+       $bk->properties = '{}';
        $bk->save();
 
        $all_banks = Bank::get();
